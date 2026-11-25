@@ -17,7 +17,14 @@ export async function routeBookings(
     if (req.method === 'POST') {
       // Шаг 4 · API-POST: тело → проверка → серверные поля → запись → ответ 201.
       // START API-POST
-      throw new HttpError(501, 'STEP_4', 'Шаг 4: подключите POST /api/bookings.')
+      const input = validateNewBooking(await readJson(req))
+      const booking: Booking = {
+        id: randomUUID(), name: input.name, seats: input.seats,
+        status: 'new', source: 'web',
+      }
+      const created = await store.add(booking)
+      sendJson(res, 201, { data: created })
+      return
       // END API-POST
     }
     res.setHeader('Allow', 'GET, POST')
