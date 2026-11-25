@@ -29,7 +29,11 @@ export async function getBookings(): Promise<Booking[]> {
 export async function createBooking(input: NewBooking): Promise<Booking> {
   // Шаг 5 · CLIENT-CREATE: добавьте POST с JSON-телом и Content-Type.
   // START CLIENT-CREATE
-  throw new Error('Шаг 5: подключите отправку формы в src/api/bookings.ts.')
+  return request<Booking>('/api/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
   // END CLIENT-CREATE
 }
 

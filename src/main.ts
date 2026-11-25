@@ -107,7 +107,8 @@ async function submitBooking() {
   try {
     // Шаг 5 · SUBMIT: вместо заглушки дождитесь createBooking и добавьте ответ в массив.
     // START SUBMIT
-    throw new Error('Шаг 5: подключите обработчик формы в src/main.ts.')
+    const created = await createBooking({ name, seats })
+    bookings = [...bookings, created]
     // END SUBMIT
     form.reset()
     note.textContent = ''
